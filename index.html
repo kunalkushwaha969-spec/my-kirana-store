@@ -1,137 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apna Bazaar - Digital Kirana Initiative</title>
-  <!-- Tailwind CSS Engine & Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal's Kirana Store</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #93c5fd;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #1e3a8a;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eaeaea;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: #059669;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .buy-btn {
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: auto;
+            transition: background-color 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body>
 
-  <!-- 1. NAVIGATION BAR -->
-  <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 px-4 py-4 shadow-sm">
-    <div class="flex justify-between items-center max-w-xl mx-auto">
-      <span class="text-xl font-black text-emerald-600 flex items-center gap-2">
-        <span class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white text-xs shadow-md">🛒</span>
-         shree ram store
-      </span>
-      <div class="flex space-x-4 text-xs font-bold text-slate-600">
-        <a href="#about" class="hover:text-emerald-600 transition-colors">About</a>
-        <a href="#products" class="hover:text-emerald-600 transition-colors">Products</a>
-        <a href="#contact" class="hover:text-emerald-600 transition-colors">Contact</a>
-      </div>
-    </div>
-  </nav>
+    <header>
+        <div class="nav-container">
+            <div class="logo">🏪 Kunal's Mart</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Groceries</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <!-- 2. HERO SECTION -->
-  <section class="bg-gradient-to-b from-emerald-50 via-white to-transparent pt-12 pb-8 px-4 text-center">
-    <div class="max-w-xl mx-auto space-y-6">
-      <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1 text-[10px] font-semibold text-emerald-700 shadow-sm mx-auto">
-        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-        SDG Goal 8: Sustaining Local Economies
-      </div>
-      <h1 class="text-3xl font-black text-slate-900 tracking-tight leading-tight">
-        Your Trusted <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Neighborhood Kirana</span>, Now Digital.
-      </h1>
-      <p class="text-sm text-slate-600 font-medium max-w-sm mx-auto leading-relaxed">
-        Bringing premium quality groceries, fresh daily essentials, and lightning-fast home delivery straight to your doorstep.
-      </p>
-      <div class="flex flex-col gap-3 max-w-xs mx-auto pt-2">
-        <a href="#products" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl shadow-md text-sm text-center transition-all">
-          Explore Categories
-        </a>
-        <a href="https://wa.me/919999999999?text=Hello%20Apna%20Bazaar" target="_blank" class="bg-white border border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl shadow-sm text-sm flex items-center justify-center gap-2 transition-all hover:bg-slate-50">
-          <span>💬</span> Order on WhatsApp
-        </a>
-      </div>
-    </div>
-    
-    <div class="mt-10 px-2 max-w-md mx-auto">
-      <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80" alt="Fresh Groceries" class="rounded-2xl shadow-xl w-full object-cover h-56 border border-white">
-    </div>
-  </section>
+    <section class="hero">
+        <h1>Your Neighborhood Grocery Store</h1>
+        <p>Fresh daily essentials, local produce, and everyday items delivered right to your community with care.</p>
+    </section>
 
-  <!-- 3. ABOUT US SECTION -->
-  <section id="about" class="py-12 bg-slate-50/50 px-4">
-    <div class="max-w-md mx-auto space-y-4">
-      <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Our Story</span>
-      <h2 class="text-2xl font-black text-slate-900">Serving the Community with Trust</h2>
-      <p class="text-xs text-slate-600 leading-relaxed">
-        Established with a vision to provide authentic products at honest prices, our general store has been an integral part of the neighborhood. By moving online, we aim to offer the same reliability with modern convenience.
-      </p>
-    </div>
-  </section>
+    <main class="container">
+        <h2 class="section-title">Featured Products</h2>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <img class="product-image" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80" alt="Fresh Vegetables">
+                <div class="product-info">
+                    <div class="product-title">Fresh Organic Vegetables</div>
+                    <div class="product-price">₹40 / kg</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
 
-  <!-- 4. DETAILED PRODUCT CATEGORIES -->
-  <section id="products" class="py-12 max-w-xl mx-auto px-4 space-y-8">
-    <div class="text-center space-y-2">
-      <h2 class="text-2xl font-black text-slate-900 tracking-tight">What We Have In Store</h2>
-      <p class="text-xs text-slate-500 font-medium">Browse our categorized catalog of daily retail essentials.</p>
-    </div>
-    
-    <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
-      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
-        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl shrink-0">🌾</div>
-        <div>
-          <h3 class="text-base font-bold text-slate-900">Daily Staples</h3>
-          <p class="text-xs text-slate-500 mt-1">Premium Rice, Atta, unadulterated Pulses, and Pure Cooking Oils.</p>
-        </div>
-      </div>
-      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
-        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-xl shrink-0">🥛</div>
-        <div>
-          <h3 class="text-base font-bold text-slate-900">Dairy & Fresh</h3>
-          <p class="text-xs text-slate-500 mt-1">Fresh Milk packets, Butter, Creamy Paneer, and Fresh Dahi.</p>
-        </div>
-      </div>
-      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
-        <div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-rose-600 text-xl shrink-0">🍪</div>
-        <div>
-          <h3 class="text-base font-bold text-slate-900">Snacks & Beverages</h3>
-          <p class="text-xs text-slate-500 mt-1">Namkeens, Chips, Biscuits, Noodles, and Cold Drinks.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div class="product-card">
+                <img class="product-image" src="https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=400&q=80" alt="Dairy Products">
+                <div class="product-info">
+                    <div class="product-title">Pure Fresh Milk</div>
+                    <div class="product-price">₹60 / Litre</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
 
-  <!-- 5. CONTACT & FOOTER SECTION -->
-  <section id="contact" class="bg-slate-900 text-white py-12 px-6 rounded-t-[2rem]">
-    <div class="max-w-md mx-auto space-y-8">
-      <div class="space-y-3">
-        <h2 class="text-2xl font-black text-white">Visit or Place Orders</h2>
-        <p class="text-xs text-slate-400 leading-relaxed">We provide excellent operational services to maintain premium neighborhood consumer relationships.</p>
-      </div>
-      <div class="space-y-4 text-xs">
-        <div class="flex items-start gap-4">
-          <span class="text-emerald-400">📍</span>
-          <div>
-            <p class="text-slate-400 font-semibold">Store Address</p>
-            <p class="text-slate-200 mt-0.5 font-medium">[Main Market Area, India]</p>
-          </div>
+            <div class="product-card">
+                <img class="product-image" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" alt="Rice Pack">
+                <div class="product-info">
+                    <div class="product-title">Premium Basmati Rice</div>
+                    <div class="product-price">₹110 / kg</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img class="product-image" src="https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&w=400&q=80" alt="Spices">
+                <div class="product-info">
+                    <div class="product-title">Mixed Indian Spices (Masala)</div>
+                    <div class="product-price">₹45 / pack</div>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
         </div>
-        <div class="flex items-start gap-4">
-          <span class="text-emerald-400">🕒</span>
-          <div>
-            <p class="text-slate-400 font-semibold">Business Hours</p>
-            <p class="text-slate-200 mt-0.5 font-medium">Mon - Sat: 8:00 AM - 10:00 PM</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700/60 text-xs space-y-2">
-        <h4 class="font-bold text-emerald-400">Store Conveniences</h4>
-        <p class="text-slate-300">🟢 Free Home Delivery (Nearby Areas)</p>
-        <p class="text-slate-300">🟢 UPI Payments Active (GPay, Paytm, PhonePe)</p>
-      </div>
-      <div class="pt-6 border-t border-slate-800 text-center text-[10px] text-slate-500">
-        <p>© 2026 B.Tech Social Internship Project. All Rights Reserved.</p>
-      </div>
-    </div>
-  </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kunal's Mart. All Rights Reserved. Serving local quality daily.</p>
+    </footer>
 
 </body>
 </html>
