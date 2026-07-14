@@ -3,1246 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kunal's Mart: Prototype (College Demo)</title>
-    <style>
-        /* ============================== */
-        /* == RESET & BASE STYLES == */
-        /* ============================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --primary-blue: #1e3a8a;
-            --accent-green: #10b981;
-            --bg-light: #f8fafc;
-            --text-dark: #333;
-            --white: #ffffff;
-            --gray-light: #eaeaea;
-            --gray-med: #9ca3af;
-            --transition-speed: 0.3s;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            outline: none;
-            font-weight: 500;
-            transition: all var(--transition-speed) ease;
-        }
-
-        input {
-            border: 1px solid var(--gray-med);
-            border-radius: 4px;
-            padding: 0.5rem;
-            width: 100%;
-        }
-
-        /* ============================== */
-        /* == LAYOUT UTILITIES == */
-        /* ============================== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 3rem 0 1rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-blue);
-        }
-
-        /* ============================== */
-        /* == HEADER & NAVIGATION == */
-        /* ============================== */
-        header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: var(--white);
-        }
-
-        .logo-icon {
-            font-size: 1.8rem;
-        }
-
-        .search-bar-container {
-            flex-grow: 1;
-            max-width: 500px;
-            position: relative;
-        }
-
-        .search-bar {
-            background-color: var(--white);
-            color: var(--text-dark);
-            padding: 0.7rem 1rem 0.7rem 2.5rem;
-            border-radius: 50px;
-            border: none;
-            transition: box-shadow var(--transition-speed);
-        }
-
-        .search-bar:focus {
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray-med);
-            pointer-events: none;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .admin-toggle-label {
-            font-size: 0.8rem;
-            color: var(--gray-light);
-            cursor: pointer;
-            transition: color var(--transition-speed);
-        }
-
-        .admin-toggle-label:hover {
-            color: var(--accent-green);
-        }
-
-        .cart-icon-btn {
-            background-color: transparent;
-            color: var(--white);
-            font-size: 1.3rem;
-            padding: 0.5rem;
-            position: relative;
-        }
-
-        .cart-counter {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--accent-green);
-            color: var(--white);
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: bounceIn var(--transition-speed) ease;
-        }
-
-        /* ============================== */
-        /* == CATEGORY FILTERS == */
-        /* ============================== */
-        .category-filters {
-            background-color: var(--white);
-            border-bottom: 1px solid var(--gray-light);
-            padding: 1rem 0;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .filter-btn {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .filter-btn:hover {
-            background-color: var(--gray-light);
-        }
-
-        .filter-btn.active {
-            background-color: var(--primary-blue);
-            color: var(--white);
-        }
-
-        /* ============================== */
-        /* == PRODUCT GRID == */
-        /* ============================== */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0 4rem;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .product-grid.loading {
-            opacity: 0.5;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-            display: flex;
-            flex-direction: column;
-            animation: slideInUp 0.5s ease backwards;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: var(--gray-light);
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary-blue);
-        }
-
-        .product-price {
-            color: var(--accent-green);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart-btn {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 0.7rem;
-            border-radius: 4px;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .add-to-cart-btn:hover {
-            background-color: #1d4ed8;
-        }
-
-        .add-to-cart-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* ============================== */
-        /* == CART SIDEBAR (animated) == */
-        /* ============================== */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100%;
-            background-color: var(--white);
-            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            transition: right var(--transition-speed) ease;
-        }
-
-        .cart-sidebar.active {
-            right: 0;
-        }
-
-        .cart-header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-header h2 {
-            font-size: 1.3rem;
-        }
-
-        .close-cart-btn {
-            background: transparent;
-            color: var(--white);
-            font-size: 1.5rem;
-        }
-
-        .cart-items-list {
-            flex-grow: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            list-style: none;
-        }
-
-        .cart-item {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid var(--gray-light);
-            animation: slideInLeft var(--transition-speed) ease;
-        }
-
-        .cart-item-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 4px;
-            object-fit: cover;
-            background-color: var(--gray-light);
-        }
-
-        .cart-item-title {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .cart-item-price {
-            font-size: 0.9rem;
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.8rem;
-        }
-
-        .quantity-btn {
-            background-color: var(--gray-light);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-        }
-
-        .cart-item-total {
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .cart-footer {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--gray-light);
-            background-color: var(--bg-light);
-        }
-
-        .cart-total-display {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .checkout-btn {
-            background-color: var(--accent-green);
-            color: var(--white);
-            width: 100%;
-            padding: 0.7rem;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .checkout-btn:hover {
-            background-color: #059669;
-        }
-
-        /* ============================== */
-        /* == ADMIN DASHBOARD == */
-        /* ============================== */
-        .admin-dashboard {
-            display: none;
-            background-color: var(--white);
-            border: 2px solid var(--primary-blue);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-top: 2rem;
-            animation: easeIn var(--transition-speed) ease;
-        }
-
-        .admin-dashboard.active {
-            display: block;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .admin-title {
-            color: var(--primary-blue);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .close-admin-btn {
-            background: transparent;
-            color: var(--primary-blue);
-            font-size: 1.3rem;
-        }
-
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .analytic-card {
-            background-color: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-blue);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .analytic-title {
-            font-size: 0.8rem;
-            color: var(--gray-med);
-        }
-
-        .analytic-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-dark);
-        }
-
-        .mock-green {
-            color: var(--accent-green);
-        }
-
-        .admin-controls {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .product-form, .inventory-status {
-            background-color: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-
-        .product-form h4, .inventory-status h4 {
-            margin-bottom: 1rem;
-            color: var(--primary-blue);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            font-size: 0.8rem;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .admin-add-btn {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 0.6rem;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .inventory-table-container {
-            height: 250px;
-            overflow-y: auto;
-        }
-
-        .inventory-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-        }
-
-        .inventory-table th, .inventory-table td {
-            text-align: left;
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .inventory-table th {
-            color: var(--gray-med);
-            font-weight: normal;
-        }
-
-        .delete-item-btn {
-            background: transparent;
-            color: #dc2626; /* red */
-            font-size: 1rem;
-        }
-
-        /* ============================== */
-        /* == FOOTER == */
-        /* ============================== */
-        footer {
-            background-color: #111827; /* gray-900 */
-            color: var(--gray-med);
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            margin-top: auto;
-        }
-
-        /* ============================== */
-        /* == OVERLAYS & MODALS == */
-        /* ============================== */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1900;
-            display: none;
-            transition: opacity var(--transition-speed) ease;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        .checkout-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background-color: var(--white);
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 2100;
-            text-align: center;
-            display: none;
-            opacity: 0;
-            transition: all var(--transition-speed) ease;
-        }
-
-        .checkout-popup.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            color: var(--accent-green);
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: scaleInPulse 0.6s ease;
-        }
-
-        .receipt-id {
-            font-family: monospace;
-            background-color: var(--bg-light);
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            display: inline-block;
-        }
-
-        .close-popup-btn {
-            background-color: var(--gray-light);
-            padding: 0.5rem 1.5rem;
-            border-radius: 4px;
-        }
-
-        /* ============================== */
-        /* == ANIMATIONS == */
-        /* ============================== */
-        @keyframes easeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.1); opacity: 0; }
-            60% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes slideInLeft {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes scaleInPulse {
-            0% { transform: scale(0.1); opacity: 0; }
-            50% { transform: scale(1.4); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes pulseActive {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        /* ============================== */
-        /* == RESPONSIVE == */
-        /* ============================== */
-        @media (max-width: 900px) {
-            .analytics-grid { grid-template-columns: 1fr; }
-            .admin-controls { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .header-content { flex-wrap: wrap; gap: 0.5rem; }
-            .logo { flex-basis: 100%; order: -2; justify-content: center; }
-            .search-bar-container { flex-basis: 100%; order: 1; max-width: 100%; }
-            .nav-actions { order: -1; margin-left: auto; }
-            .cart-sidebar { width: 100%; right: -100%; }
-            .filter-container { flex-wrap: wrap; }
-        }
-
-        @media (max-width: 480px) {
-            .section-title h2 { font-size: 1.5rem; }
-        }
-
-    </style>
+    <title>Apna Bazaar - Local Kirana Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <a href="#" class="logo">
-                <span class="logo-icon">🏪</span>
-                <span class="logo-text">Kunal's Mart</span>
-            </a>
-            
-            <div class="search-bar-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="search-input" class="search-bar" placeholder="Search rice, dal, snacks...">
+    <header id="header">
+        <nav class="navbar">
+            <div class="logo">🛒 Apna Bazaar</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            
-            <div class="nav-actions">
-                <div class="admin-toggle-label" id="admin-toggle" title="College Professor Demo Link">Owner Mode (Pro)</div>
-                <button class="cart-icon-btn" id="open-cart-btn" title="View Shopping Cart">
-                    <span class="cart-icon">🛒</span>
-                    <span class="cart-counter" id="cart-counter-display">0</span>
-                </button>
-            </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="container">
+    <section id="home" class="hero fade-in">
+        <div class="hero-content">
+            <span class="badge">SDG Goal 8: Economic Growth</span>
+            <h1>Your Trusted Neighborhood Kirana, Now Digital.</h1>
+            <p>Bringing premium quality groceries and fresh daily essentials straight to your doorstep.</p>
+            <a href="#products" class="btn btn-primary">Explore Categories</a>
+        </div>
+    </section>
 
-        <!-- Admin Dashboard Section -->
-        <section class="admin-dashboard" id="admin-dashboard-section">
-            <div class="admin-header">
-                <h3 class="admin-title">📊 Simulated Owner Dashboard</h3>
-                <button class="close-admin-btn" id="close-admin-btn">×</button>
+    <section id="about" class="about section-padding fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Story</h2>
+                <p>Serving the community with trust and transparency.</p>
             </div>
+            <div class="about-content">
+                <p>Established with a mission to provide authentic products at honest prices, our general store has been an integral part of the neighborhood. By moving online, we aim to offer the same reliability with modern convenience, directly supporting local economic growth.</p>
+            </div>
+        </div>
+    </section>
 
-            <!-- Analytics Mock -->
-            <div class="analytics-grid">
-                <div class="analytic-card">
-                    <div class="analytic-title">Today's Simulated Sales</div>
-                    <div class="analytic-value mock-green">₹ 0,00</div>
+    <section id="products" class="products section-padding bg-light fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Have In Store</h2>
+                <p>Carefully sourced everyday items across multiple categories.</p>
+            </div>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?auto=format&fit=crop&w=400&q=80" alt="Grocery">
+                    <div class="card-body">
+                        <h3>Grocery</h3>
+                        <p>Premium rice, wheat, pulses, and spices.</p>
+                    </div>
                 </div>
-                <div class="analytic-card">
-                    <div class="analytic-title">Mock Product Count</div>
-                    <div class="analytic-value" id="analytic-product-count">0</div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=400&q=80" alt="Dairy">
+                    <div class="card-body">
+                        <h3>Dairy Products</h3>
+                        <p>Fresh milk, butter, paneer, and dahi daily.</p>
+                    </div>
                 </div>
-                <div class="analytic-card">
-                    <div class="analytic-title">College Demo Mode Status</div>
-                    <div class="analytic-value">ACTIVE</div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=400&q=80" alt="Snacks">
+                    <div class="card-body">
+                        <h3>Snacks</h3>
+                        <p>Biscuits, namkeens, chips, and chocolates.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=400&q=80" alt="Beverages">
+                    <div class="card-body">
+                        <h3>Beverages</h3>
+                        <p>Cold drinks, juices, tea, and coffee powder.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1584824486509-11459466a14e?auto=format&fit=crop&w=400&q=80" alt="Household">
+                    <div class="card-body">
+                        <h3>Household Essentials</h3>
+                        <p>Detergents, floor cleaners, and dish wash.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=400&q=80" alt="Personal Care">
+                    <div class="card-body">
+                        <h3>Personal Care</h3>
+                        <p>Soaps, shampoos, toothpaste, and hair oils.</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Management Tools -->
-            <div class="admin-controls">
-                <form class="product-form" id="admin-product-form">
-                    <h4>Add New Mock Product</h4>
-                    <div class="form-group">
-                        <label>Product Name</label>
-                        <input type="text" id="admin-p-name" placeholder="E.g., Parle G" required>
+    <section id="services" class="services section-padding fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Why our neighborhood chooses us.</p>
+            </div>
+            <div class="grid-container services-grid">
+                <div class="service-box">📦 Home Delivery</div>
+                <div class="service-box">📱 UPI Payment Accepted</div>
+                <div class="service-box">⭐ Quality Products</div>
+                <div class="service-box">💰 Affordable Prices</div>
+                <div class="service-box">🤝 Friendly Customer Service</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery section-padding bg-light fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Store Gallery</h2>
+            </div>
+            <div class="grid-container gallery-grid">
+                <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=400&q=80" alt="Aisle 1" class="gallery-img">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80" alt="Aisle 2" class="gallery-img">
+                <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=400&q=80" alt="Aisle 3" class="gallery-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials section-padding fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Customer Reviews</h2>
+            </div>
+            <div class="grid-container">
+                <div class="review-card">
+                    <p>"Always fresh items and they deliver so fast. Highly recommended for daily needs!"</p>
+                    <h4>- Rahul S.</h4>
+                </div>
+                <div class="review-card">
+                    <p>"The UPI payment option and clean store make my shopping experience great every time."</p>
+                    <h4>- Priya M.</h4>
+                </div>
+                <div class="review-card">
+                    <p>"Very friendly owner and they always have exactly what I am looking for."</p>
+                    <h4>- Amit K.</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section-padding bg-light fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Visit or Order</h2>
+            </div>
+            <div class="contact-wrapper grid-container" style="grid-template-columns: 1fr 1fr;">
+                <div class="contact-info">
+                    <p><strong>Address:</strong> [Main Market Area, Lalitpur, Uttar Pradesh]</p>
+                    <p><strong>Phone:</strong> +91 XXXXX XXXXX</p>
+                    <p><strong>Email:</strong> contact@apnabazaar.com</p>
+                    <p><strong>Business Hours:</strong> 8:00 AM - 10:00 PM (Mon-Sun)</p>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115408.09799710375!2d78.3371694!3d24.6931754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397ba119c3629e37%3A0xcbc7299a4c84a5db!2sLalitpur%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="250" style="border:0; border-radius: 12px; margin-top: 15px;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" id="admin-p-category" placeholder="Staples, Snacks, Dairy, etc." required>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (₹)</label>
-                        <input type="number" id="admin-p-price" placeholder="E.g., 10" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Image URL (Optional)</label>
-                        <input type="url" id="admin-p-image" placeholder="Paste link or leave blank">
-                    </div>
-                    <button type="submit" class="admin-add-btn">Simulate Add Item</button>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <textarea rows="4" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
-
-                <div class="inventory-status">
-                    <h4>Simulated Inventory Status</h4>
-                    <div class="inventory-table-container">
-                        <table class="inventory-table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Mock Price</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventory-table-body">
-                                <!-- Inventory Table Rows Injected Here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
-        </section>
-
-        <!-- Category Filters -->
-        <section class="category-filters container">
-            <div class="filter-container" id="category-filter-container">
-                <button class="filter-btn active" data-category="all">All Items</button>
-                <button class="filter-btn" data-category="Staples">Staples</button>
-                <button class="filter-btn" data-category="Snacks">Snacks</button>
-                <button class="filter-btn" data-category="Dairy">Dairy</button>
-                <button class="filter-btn" data-category="Kitchen">Kitchen</button>
-            </div>
-        </section>
-
-        <!-- Dynamic Product Grid Section -->
-        <section class="section-title">
-            <h2>Our Kirana Essentials</h2>
-        </section>
-        
-        <div class="product-grid" id="product-grid-main">
-            <!-- Product Cards Injected Here -->
         </div>
+    </section>
 
-    </main>
-
-    <!-- Overlays & Sidebars -->
-    <div class="overlay" id="ui-overlay"></div>
-
-    <!-- Animated Cart Sidebar -->
-    <div class="cart-sidebar" id="cart-sidebar-panel">
-        <div class="cart-header">
-            <h2>🛒 Mock Shopping Cart</h2>
-            <button class="close-cart-btn" id="close-cart-btn">×</button>
-        </div>
-        <ul class="cart-items-list" id="cart-items-display-list">
-            <!-- Cart Items Injected Here -->
-        </ul>
-        <div class="cart-footer">
-            <div class="cart-total-display">
-                <span>Simulated Total:</span>
-                <span id="cart-total-value">₹ 0</span>
-            </div>
-            <button class="checkout-btn" id="checkout-btn">Proceed to Mock Checkout</button>
-        </div>
-    </div>
-
-    <!-- Checkout Success Popup -->
-    <div class="checkout-popup" id="checkout-popup-modal">
-        <span class="success-icon">✔️</span>
-        <h3>Simulated Order Placed!</h3>
-        <p>This is a demonstration success message for your college project.</p>
-        <div>
-            Mock Receipt Number:
-            <br>
-            <strong class="receipt-id" id="receipt-id-display">KUNAL-MART-XXXXX</strong>
-        </div>
-        <p>The cart has been cleared.</p>
-        <button class="close-popup-btn" id="close-popup-btn">OK</button>
-    </div>
-
-    <!-- Footer -->
     <footer>
-        <p>This website is a COLLEGE PROJECT PROTOTYPE demonstrating frontend skills.</p>
-        <p>&copy; 2026 Kunal's Mart Demo. No live business operations.</p>
+        <div class="container">
+            <p><strong>Apna Bazaar</strong> - B.Tech Social Internship Project</p>
+            <div class="quick-links">
+                <a href="#home">Home</a> | 
+                <a href="#products">Products</a> | 
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">© 2026 Apna Bazaar. All Rights Reserved.</p>
+        </div>
     </footer>
 
-    <!-- JavaScript - Logic & Animations -->
-    <script>
-        // ==============================
-        // == INITIAL MOCK DATA ==
-        // ==============================
-        const defaultProducts = [
-            { id: 101, name: 'Premium Basmati Rice', category: 'Staples', price: 110, image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80' },
-            { id: 102, name: 'Maggie Masala Noodles', category: 'Snacks', price: 15, image: 'https://images.unsplash.com/photo-1628100589254-2c7bb2407629?auto=format&fit=crop&w=400&q=80' },
-            { id: 103, name: 'Pure Fresh Milk', category: 'Dairy', price: 60, image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=400&q=80' },
-            { id: 104, name: 'Mixed Indian Spices (Masala)', category: 'Kitchen', price: 45, image: 'https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&w=400&q=80' },
-            { id: 105, name: 'Lays Chips (Classic Salted)', category: 'Snacks', price: 20, image: 'https://images.unsplash.com/photo-1599490659223-eb5648f5e7f1?auto=format&fit=crop&w=400&q=80' },
-            { id: 106, name: 'Ashirvaad Whole Wheat Atta', category: 'Staples', price: 320, image: 'https://images.unsplash.com/photo-1632742969966-2244a5697274?auto=format&fit=crop&w=400&q=80' },
-            { id: 107, name: 'Amul Butter (100g)', category: 'Dairy', price: 55, image: 'https://images.unsplash.com/photo-1628100589254-2c7bb2407629?auto=format&fit=crop&w=400&q=80' },
-            { id: 108, name: 'Tata Tea Premium', category: 'Kitchen', price: 190, image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80' }
-        ];
+    <button id="scrollTopBtn">↑</button>
 
-        // Placeholder for new product IDs
-        let currentIdCounter = 110;
-
-        // ==============================
-        // == APP STATE ==
-        // ==============================
-        const appState = {
-            products: [...defaultProducts], // Current inventory
-            cart: [], // Items added to cart {productId, quantity}
-            activeCategory: 'all'
-        };
-
-        // ==============================
-        // == UI ELEMENT REFERENCES ==
-        // ==============================
-        // Main Grid
-        const productGridMain = document.getElementById('product-grid-main');
-        
-        // Cart Sidebar
-        const cartSidebarPanel = document.getElementById('cart-sidebar-panel');
-        const uiOverlay = document.getElementById('ui-overlay');
-        const cartCounterDisplay = document.getElementById('cart-counter-display');
-        const cartTotalValue = document.getElementById('cart-total-value');
-        const cartItemsDisplayList = document.getElementById('cart-items-display-list');
-
-        // Admin Dashboard
-        const adminDashboardSection = document.getElementById('admin-dashboard-section');
-        const analyticProductCount = document.getElementById('analytic-product-count');
-        const inventoryTableBody = document.getElementById('inventory-table-body');
-        const adminProductForm = document.getElementById('admin-product-form');
-
-        // Search & Filter
-        const searchInput = document.getElementById('search-input');
-        const categoryFilterContainer = document.getElementById('category-filter-container');
-
-        // Popup
-        const checkoutPopupModal = document.getElementById('checkout-popup-modal');
-        const receiptIdDisplay = document.getElementById('receipt-id-display');
-
-        // ==============================
-        // == CORE FUNCTIONS (Render) ==
-        // ==============================
-
-        // 1. Initial Load
-        function initApp() {
-            renderMainProductGrid(appState.products);
-            updateGlobalUIMetrics();
-            setupEventListeners();
-        }
-
-        // 2. Render Main Storefront Grid
-        function renderMainProductGrid(filteredProductsData) {
-            // Animated Loading State (fade out)
-            productGridMain.classList.add('loading');
-
-            setTimeout(() => {
-                productGridMain.innerHTML = ''; // Clear grid
-
-                if (filteredProductsData.length === 0) {
-                    productGridMain.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #999;">No essentials found for this search/filter.</div>';
-                } else {
-                    filteredProductsData.forEach((product, index) => {
-                        const productCardHTML = `
-                            <div class="product-card" style="animation-delay: ${index * 50}ms;">
-                                <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.onerror=null; this.src='https://placehold.co/400x200?text=Kunal+Mart';">
-                                <div class="product-info">
-                                    <div class="product-title">${product.name}</div>
-                                    <div class="product-price">₹ ${product.price}</div>
-                                    <button class="add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
-                                </div>
-                            </div>
-                        `;
-                        productGridMain.insertAdjacentHTML('beforeend', productCardHTML);
-                    });
-                }
-                
-                // End loading state (fade in)
-                productGridMain.classList.remove('loading');
-            }, 300); // Small simulated delay for demo effect
-        }
-
-        // 3. Render Cart Sidebar
-        function renderCart() {
-            cartItemsDisplayList.innerHTML = ''; // Clear list
-            let totalPrice = 0;
-
-            if (appState.cart.length === 0) {
-                cartItemsDisplayList.innerHTML = '<li style="text-align: center; color: #999; margin-top: 2rem;">Demo cart is empty.</li>';
-            } else {
-                appState.cart.forEach(cartItem => {
-                    // Find product details
-                    const productData = appState.products.find(p => p.id === cartItem.productId);
-                    if (productData) {
-                        const itemTotal = productData.price * cartItem.quantity;
-                        totalPrice += itemTotal;
-
-                        const cartItemHTML = `
-                            <li class="cart-item">
-                                <img src="${productData.image}" alt="${productData.name}" class="cart-item-image" onerror="this.onerror=null; this.src='https://placehold.co/50x50?text=IMG';">
-                                <div>
-                                    <div class="cart-item-title">${productData.name}</div>
-                                    <div class="quantity-controls">
-                                        <button class="quantity-btn cart-qty-minus" data-product-id="${cartItem.productId}">-</button>
-                                        <span class="cart-qty-value">${cartItem.quantity}</span>
-                                        <button class="quantity-btn cart-qty-plus" data-product-id="${cartItem.productId}">+</button>
-                                    </div>
-                                </div>
-                                <div style="text-align: right;">
-                                    <div class="cart-item-total">₹ ${itemTotal}</div>
-                                    <button class="delete-item-btn cart-item-remove" data-product-id="${cartItem.productId}">🗑️</button>
-                                </div>
-                            </li>
-                        `;
-                        cartItemsDisplayList.insertAdjacentHTML('beforeend', cartItemHTML);
-                    }
-                });
-            }
-
-            cartTotalValue.innerText = `₹ ${totalPrice}`;
-            updateCartCounterDisplay();
-        }
-
-        // 4. Render Admin Inventory Table
-        function renderAdminInventoryTable() {
-            inventoryTableBody.innerHTML = ''; // Clear table
-
-            appState.products.forEach(product => {
-                const tableRowHTML = `
-                    <tr>
-                        <td>${product.name}</td>
-                        <td>₹ ${product.price}</td>
-                        <td>
-                            <button class="delete-item-btn admin-delete-product" data-product-id="${product.id}">×</button>
-                        </td>
-                    </tr>
-                `;
-                inventoryTableBody.insertAdjacentHTML('beforeend', tableRowHTML);
-            });
-        }
-
-        // ==============================
-        // == INTERACTION LOGIC ==
-        // ==============================
-
-        // Cart Actions
-        function toggleCartSidebar(state) {
-            if (state) {
-                renderCart();
-                cartSidebarPanel.classList.add('active');
-                uiOverlay.classList.add('active');
-            } else {
-                cartSidebarPanel.classList.remove('active');
-                uiOverlay.classList.remove('active');
-            }
-        }
-
-        function addToCart(productId) {
-            // Find if item already in cart
-            const existingCartItem = appState.cart.find(item => item.productId === productId);
-            
-            if (existingCartItem) {
-                existingCartItem.quantity += 1;
-            } else {
-                appState.cart.push({ productId: productId, quantity: 1 });
-            }
-
-            // Simple visual feedback (bounce counter)
-            renderCart();
-            triggerCounterBounceAnimation();
-        }
-
-        function removeFromCart(productId) {
-            appState.cart = appState.cart.filter(item => item.productId !== productId);
-            renderCart();
-        }
-
-        function updateQuantityInCart(productId, actionType) {
-            const cartItem = appState.cart.find(item => item.productId === productId);
-            if (cartItem) {
-                if (actionType === 'plus') {
-                    cartItem.quantity += 1;
-                } else if (actionType === 'minus') {
-                    cartItem.quantity -= 1;
-                    if (cartItem.quantity <= 0) {
-                        removeFromCart(productId);
-                    }
-                }
-                renderCart();
-            }
-        }
-
-        function handleCheckout() {
-            if (appState.cart.length === 0) {
-                alert("Simulated cart is empty. Professor cannot checkout an empty list!");
-                return;
-            }
-
-            // Close cart sidebar with animation
-            toggleCartSidebar(false);
-
-            // Generate mock receipt ID (impressive for demo)
-            const randomId = `KUNAL-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-            receiptIdDisplay.innerText = randomId;
-
-            // Clear mock cart state
-            appState.cart = [];
-            updateGlobalUIMetrics();
-
-            // Show Animated Success Popup
-            checkoutPopupModal.classList.add('active');
-            uiOverlay.classList.add('active'); // re-show overlay for popup
-        }
-
-        function closeCheckoutPopup() {
-            checkoutPopupModal.classList.remove('active');
-            uiOverlay.classList.remove('active');
-        }
-
-        // Admin Dashboard Actions
-        function toggleAdminDashboard() {
-            adminDashboardSection.classList.toggle('active');
-            if (adminDashboardSection.classList.contains('active')) {
-                renderAdminInventoryTable();
-            }
-        }
-
-        function simulateAddProduct(event) {
-            event.preventDefault(); // Prevent page reload
-
-            // Get Form Data
-            const pName = document.getElementById('admin-p-name').value;
-            const pCategory = document.getElementById('admin-p-category').value;
-            const pPrice = document.getElementById('admin-p-price').value;
-            const pImage = document.getElementById('admin-p-image').value;
-
-            // Create new product object
-            currentIdCounter++;
-            const newProduct = {
-                id: currentIdCounter,
-                name: pName,
-                category: pCategory,
-                price: parseFloat(pPrice),
-                image: pImage || 'https://placehold.co/400x200?text=Kunal+Mart+Item' // fallback
-            };
-
-            // Add to simulated inventory state
-            appState.products.push(newProduct);
-            
-            // Re-render UI
-            adminProductForm.reset(); // clear form
-            applyCurrentSearchFilterState(); // re-apply search/filter to grid
-            renderAdminInventoryTable(); // update inventory list
-            updateGlobalUIMetrics(); // update analytics count
-        }
-
-        function simulateDeleteProduct(productId) {
-            // Remove from simulated inventory state
-            appState.products = appState.products.filter(product => product.id !== productId);
-            
-            // Re-render UI
-            applyCurrentSearchFilterState(); // re-apply search/filter to grid
-            renderAdminInventoryTable(); // update inventory list
-            updateGlobalUIMetrics(); // update analytics count
-        }
-
-        // Search & Filter Logic
-        function applyCurrentSearchFilterState() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            const category = appState.activeCategory;
-
-            let filteredResults = appState.products;
-
-            // 1. Filter by category first
-            if (category !== 'all') {
-                filteredResults = filteredResults.filter(p => p.category === category);
-            }
-
-            // 2. Then filter by search term
-            if (searchTerm !== '') {
-                filteredResults = filteredResults.filter(p => p.name.toLowerCase().includes(searchTerm));
-            }
-
-            // Render final grid
-            renderMainProductGrid(filteredResults);
-        }
-
-        function handleCategoryTabClick(event) {
-            if (!event.target.classList.contains('filter-btn')) return;
-
-            // 1. Update Active state in UI
-            const currentActiveTab = categoryFilterContainer.querySelector('.filter-btn.active');
-            if (currentActiveTab) {
-                currentActiveTab.classList.remove('active');
-            }
-            event.target.classList.add('active');
-
-            // 2. Update state and re-render grid
-            const selectedCategory = event.target.getAttribute('data-category');
-            appState.activeCategory = selectedCategory;
-            applyCurrentSearchFilterState(); // Apply search *and* the new category filter
-        }
-
-        // ==============================
-        // == UTILITY UI FUNCTIONS ==
-        // ==============================
-        function updateGlobalUIMetrics() {
-            analyticProductCount.innerText = appState.products.length;
-            updateCartCounterDisplay();
-        }
-
-        function updateCartCounterDisplay() {
-            const totalItems = appState.cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCounterDisplay.innerText = totalItems;
-        }
-
-        function triggerCounterBounceAnimation() {
-            cartCounterDisplay.style.animation = 'none'; // reset
-            cartCounterDisplay.offsetHeight; // trigger reflow
-            cartCounterDisplay.style.animation = 'bounceIn var(--transition-speed) ease'; // apply
-        }
-
-        // ==============================
-        // == SETUP EVENT LISTENERS ==
-        // ==============================
-        function setupEventListeners() {
-            // Grid Item Delegation (Add to Cart)
-            productGridMain.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart-btn')) {
-                    const productId = parseInt(e.target.getAttribute('data-product-id'));
-                    addToCart(productId);
-                }
-            });
-
-            // Cart Panel Actions (Open/Close, Checkout)
-            document.getElementById('open-cart-btn').addEventListener('click', () => toggleCartSidebar(true));
-            document.querySelectorAll('#close-cart-btn, #close-popup-btn').forEach(btn => btn.addEventListener('click', () => {
-                toggleCartSidebar(false);
-                closeCheckoutPopup();
-            }));
-            uiOverlay.addEventListener('click', () => {
-                toggleCartSidebar(false);
-                closeCheckoutPopup();
-            }); // Close everything on overlay click
-
-            // Admin Actions (Toggle, Add, Inventory Table)
-            document.getElementById('admin-toggle').addEventListener('click', toggleAdminDashboard);
-            document.getElementById('close-admin-btn').addEventListener('click', toggleAdminDashboard);
-            adminProductForm.addEventListener('submit', simulateAddProduct);
-
-            // Grid Search
-            searchInput.addEventListener('input', applyCurrentSearchFilterState);
-
-            // Category Tabs
-            categoryFilterContainer.addEventListener('click', handleCategoryTabClick);
-
-            // Cart Sidebar Actions (Qty Controls, Remove, Checkout)
-            cartSidebarPanel.addEventListener('click', (e) => {
-                const productId = parseInt(e.target.getAttribute('data-product-id'));
-                if (!productId) return;
-
-                if (e.target.classList.contains('cart-qty-plus')) {
-                    updateQuantityInCart(productId, 'plus');
-                } else if (e.target.classList.contains('cart-qty-minus')) {
-                    updateQuantityInCart(productId, 'minus');
-                } else if (e.target.classList.contains('cart-item-remove')) {
-                    removeFromCart(productId);
-                } else if (e.target.id === 'checkout-btn') {
-                    // Important for checkout button delegation
-                    handleCheckout();
-                }
-            });
-
-            // Target individual Checkout button in sidebar delegation (fix)
-            document.getElementById('checkout-btn').addEventListener('click', handleCheckout);
-
-
-            // Inventory Table delegation (Delete Product)
-            inventoryTableBody.addEventListener('click', (e) => {
-                if (e.target.classList.contains('admin-delete-product')) {
-                    const productId = parseInt(e.target.getAttribute('data-product-id'));
-                    simulateDeleteProduct(productId);
-                }
-            });
-        }
-
-        // ==============================
-        // == INITIALIZE APP ==
-        // ==============================
-        window.addEventListener('DOMContentLoaded', initApp);
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
