@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna Bazaar - Digital Kirana Initiative</title>
+  <!-- Tailwind CSS Engine & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- 1. NAVIGATION BAR -->
+  <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 px-4 py-4 shadow-sm">
+    <div class="flex justify-between items-center max-w-xl mx-auto">
+      <span class="text-xl font-black text-emerald-600 flex items-center gap-2">
+        <span class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white text-xs shadow-md">🛒</span>
+        Apna Bazaar
+      </span>
+      <div class="flex space-x-4 text-xs font-bold text-slate-600">
+        <a href="#about" class="hover:text-emerald-600 transition-colors">Abbout</a>
+        <a href="#products" class="hover:text-emerald-600 transition-colors">Products</a>
+        <a href="#contact" class="hover:text-emerald-600 transition-colors">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. HERO SECTION -->
+  <section class="bg-gradient-to-b from-emerald-50 via-white to-transparent pt-12 pb-8 px-4 text-center">
+    <div class="max-w-xl mx-auto space-y-6">
+      <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1 text-[10px] font-semibold text-emerald-700 shadow-sm mx-auto">
+        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+        SDG Goal 8: Sustaining Local Economies
+      </div>
+      <h1 class="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+        Your Trusted <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Neighborhood Kirana</span>, Now Digital.
+      </h1>
+      <p class="text-sm text-slate-600 font-medium max-w-sm mx-auto leading-relaxed">
+        Bringing premium quality groceries, fresh daily essentials, and lightning-fast home delivery straight to your doorstep.
+      </p>
+      <div class="flex flex-col gap-3 max-w-xs mx-auto pt-2">
+        <a href="#products" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl shadow-md text-sm text-center transition-all">
+          Explore Categories
+        </a>
+        <a href="https://wa.me/919999999999?text=Hello%20Apna%20Bazaar" target="_blank" class="bg-white border border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl shadow-sm text-sm flex items-center justify-center gap-2 transition-all hover:bg-slate-50">
+          <span>💬</span> Order on WhatsApp
+        </a>
+      </div>
+    </div>
+    
+    <div class="mt-10 px-2 max-w-md mx-auto">
+      <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=600&q=80" alt="Fresh Groceries" class="rounded-2xl shadow-xl w-full object-cover h-56 border border-white">
+    </div>
+  </section>
+
+  <!-- 3. ABOUT US SECTION -->
+  <section id="about" class="py-12 bg-slate-50/50 px-4">
+    <div class="max-w-md mx-auto space-y-4">
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Our Story</span>
+      <h2 class="text-2xl font-black text-slate-900">Serving the Community with Trust</h2>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Established with a vision to provide authentic products at honest prices, our general store has been an integral part of the neighborhood. By moving online, we aim to offer the same reliability with modern convenience.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. DETAILED PRODUCT CATEGORIES -->
+  <section id="products" class="py-12 max-w-xl mx-auto px-4 space-y-8">
+    <div class="text-center space-y-2">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight">What We Have In Store</h2>
+      <p class="text-xs text-slate-500 font-medium">Browse our categorized catalog of daily retail essentials.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
+        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl shrink-0">🌾</div>
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Daily Staples</h3>
+          <p class="text-xs text-slate-500 mt-1">Premium Rice, Atta, unadulterated Pulses, and Pure Cooking Oils.</p>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
+        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-xl shrink-0">🥛</div>
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Dairy & Fresh</h3>
+          <p class="text-xs text-slate-500 mt-1">Fresh Milk packets, Butter, Creamy Paneer, and Fresh Dahi.</p>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-emerald-500/30 transition-all">
+        <div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-rose-600 text-xl shrink-0">🍪</div>
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Snacks & Beverages</h3>
+          <p class="text-xs text-slate-500 mt-1">Namkeens, Chips, Biscuits, Noodles, and Cold Drinks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CONTACT & FOOTER SECTION -->
+  <section id="contact" class="bg-slate-900 text-white py-12 px-6 rounded-t-[2rem]">
+    <div class="max-w-md mx-auto space-y-8">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-black text-white">Visit or Place Orders</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">We provide excellent operational services to maintain premium neighborhood consumer relationships.</p>
+      </div>
+      <div class="space-y-4 text-xs">
+        <div class="flex items-start gap-4">
+          <span class="text-emerald-400">📍</span>
+          <div>
+            <p class="text-slate-400 font-semibold">Store Address</p>
+            <p class="text-slate-200 mt-0.5 font-medium">[Main Market Area, India]</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="text-emerald-400">🕒</span>
+          <div>
+            <p class="text-slate-400 font-semibold">Business Hours</p>
+            <p class="text-slate-200 mt-0.5 font-medium">Mon - Sat: 8:00 AM - 10:00 PM</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700/60 text-xs space-y-2">
+        <h4 class="font-bold text-emerald-400">Store Conveniences</h4>
+        <p class="text-slate-300">🟢 Free Home Delivery (Nearby Areas)</p>
+        <p class="text-slate-300">🟢 UPI Payments Active (GPay, Paytm, PhonePe)</p>
+      </div>
+      <div class="pt-6 border-t border-slate-800 text-center text-[10px] text-slate-500">
+        <p>© 2026 B.Tech Social Internship Project. All Rights Reserved.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
