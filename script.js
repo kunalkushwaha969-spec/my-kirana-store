@@ -87,3 +87,26 @@ searchInput.addEventListener('input', function(e) {
 
 // 6. Start the process when the script loads
 loadInventory();
+// --- Dark Mode Logic ---
+const darkModeToggle = document.getElementById('darkModeToggle');
+
+// 1. Check if the user already chose dark mode in a previous visit
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-theme');
+    darkModeToggle.textContent = '☀️ Light Mode';
+}
+
+// 2. Listen for clicks on the toggle button
+darkModeToggle.addEventListener('click', () => {
+    // Toggle the class on the body element
+    document.body.classList.toggle('dark-theme');
+    
+    // 3. Update the button text and save preference
+    if (document.body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.textContent = '☀️ Light Mode';
+    } else {
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.textContent = '🌙 Dark Mode';
+    }
+});

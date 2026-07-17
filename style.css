@@ -2,8 +2,20 @@
 :root {
     --primary-color: #2c3e50;
     --accent-color: #e67e22; 
-    --bg-light: #f4f7f6;
-    --text-dark: #2c3e50;
+    --bg-color: #f4f7f6;
+    --text-color: #2c3e50;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+}
+
+/* --- Dark Mode Variables --- */
+body.dark-theme {
+    --primary-color: #4da3ff; 
+    --accent-color: #f39c12;
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
 }
 
 /* --- Global Reset & Typography --- */
@@ -15,9 +27,10 @@
 }
 
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- Fluid Layout Container --- */
@@ -37,12 +50,14 @@ nav {
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 15px;
     gap: 15px;
+    transition: border-color 0.3s ease;
 }
 
 nav .logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
+    transition: color 0.3s ease;
 }
 
 nav ul {
@@ -53,7 +68,7 @@ nav ul {
 
 nav a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--text-color); 
     font-weight: bold;
     transition: color 0.3s ease;
 }
@@ -62,16 +77,36 @@ nav a:hover {
     color: var(--accent-color);
 }
 
+/* Dark Mode Navbar Button */
+.theme-toggle-nav {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-left: 20px; 
+    transition: all 0.2s ease-in-out;
+}
+
+.theme-toggle-nav:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
 /* --- Hero Section --- */
 .hero {
     text-align: center;
     padding: clamp(60px, 10vh, 120px) 20px; 
     background-color: var(--primary-color);
-    background-image: linear-gradient(135deg, #2c3e50, #1a252f);
+    background-image: linear-gradient(135deg, var(--primary-color), #1a252f); 
     color: white;
     border-radius: 12px;
     margin: 30px 0 50px 0;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
 .hero h1 {
@@ -95,12 +130,15 @@ section h2 {
 }
 
 .card {
-    background: white;
+    background: var(--card-bg);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     border-top: 4px solid var(--accent-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .card:hover {
@@ -117,21 +155,25 @@ form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    background: white;
+    background: var(--card-bg);
     padding: 40px;
     border-radius: 8px;
     max-width: 600px; 
     margin: 0 auto; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 input, textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 input:focus, textarea:focus {
@@ -140,7 +182,7 @@ input:focus, textarea:focus {
 }
 
 button {
-    background-color: #25D366; /* WhatsApp Green */
+    background-color: #25D366; 
     color: white;
     padding: 15px;
     border: none;
@@ -158,26 +200,29 @@ button:hover {
 /* --- Footer --- */
 footer {
     text-align: center;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--border-color);
     padding-top: 20px;
     margin-top: 40px;
     font-size: 0.9em;
-    color: #666;
+    color: var(--text-color);
+    transition: border-color 0.3s ease, color 0.3s ease;
 }
+
+/* --- Status Badges --- */
 .status-badge {
-  font-size: 0.85rem;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-left: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
 }
 
 .in-stock {
-  background-color: #e6f4ea;
-  color: #1e8e3e;
+    background-color: #e6f4ea;
+    color: #1e8e3e;
 }
 
 .out-of-stock {
-  background-color: #fce8e6;
-  color: #d93025;
+    background-color: #fce8e6;
+    color: #d93025;
 }
