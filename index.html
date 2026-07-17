@@ -11,60 +11,52 @@
         <nav>
             <div class="logo">Ramnagar Spares</div>
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#products">Inventory</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Parts</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="about" class="hero">
-            <h1>Reliable Motor & Tractor Parts</h1>
-            <p>Providing high-quality engine components, hydraulics, and electrical spares for local agriculture and transport.</p>
+        <section id="home" class="hero">
+            <h1>Reliable Tractor Parts for Ramnagar</h1>
+            <p>Supporting local agriculture and transport with quality spares.</p>
         </section>
 
         <section id="products">
-            <h2>Our Inventory</h2>
+            <h2>Available Spares</h2>
             <div class="product-grid">
-                <article class="card">
-                    <h3>⚙️ Engine Components</h3>
-                    <p>Pistons, rings, fuel injectors, and gaskets for all major tractor brands.</p>
-                </article>
-                <article class="card">
-                    <h3>🛢️ Hydraulics</h3>
-                    <p>High-pressure hoses, hydraulic pumps, and lifting cylinders.</p>
-                </article>
-                <article class="card">
-                    <h3>⚡ Electrical & Motors</h3>
-                    <p>Alternators, starter motors, batteries, and heavy-duty wiring.</p>
-                </article>
+                <div class="card">
+                    <h3>Engine Components</h3>
+                    <p>Pistons, rings, and gaskets for all major tractor brands.</p>
+                </div>
+                <div class="card">
+                    <h3>Transmission Parts</h3>
+                    <p>Clutch plates, gears, and bearings for heavy-duty operation.</p>
+                </div>
+                <div class="card">
+                    <h3>Filters & Oils</h3>
+                    <p>High-quality engine oil, fuel filters, and air filters.</p>
+                </div>
             </div>
         </section>
 
-        <section id="contact">
-            <h2>Request a Part</h2>
-            <form id="part-request-form">
-                <div class="form-group">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="part">Part Description:</label>
-                    <textarea id="part" name="part" rows="3" required></textarea>
-                </div>
-                <button type="submit">Send Request</button>
-            </form>
-        </section>
+        <section id="inventory">
+    <h2>Live Parts Finder</h2>
+    <p style="text-align: center; margin-bottom: 20px;">Search our regular stock to see what we carry.</p>
+    
+    <div class="search-container" style="max-width: 600px; margin: 0 auto 30px auto;">
+        <input type="text" id="searchInput" placeholder="Search for oil, bearings, pipes..." style="width: 100%; padding: 15px; font-size: 1.1rem; border: 2px solid var(--primary-color); border-radius: 8px;">
+    </div>
+
+    <!-- The JS will automatically inject the products into this div -->
+    <div class="product-grid" id="resultsGrid"></div>
+</section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Ramnagar Motor & Tractor Spares. All rights reserved.</p>
-        <p><small>SDG Goal 8 Project Website</small></p>
+        <p>&copy; 2026 Ramnagar Motor & Tractor Spares. SDG Goal 8 Initiative.</p>
     </footer>
 
     <script src="script.js"></script>

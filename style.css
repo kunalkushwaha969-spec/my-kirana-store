@@ -1,11 +1,12 @@
-/* --- Global Reset & Variables --- */
+/* --- CSS Variables --- */
 :root {
-    --primary: #2c3e50;
-    --accent: #e67e22; 
-    --bg: #f4f7f6;
-    --text: #333;
+    --primary-color: #2c3e50;
+    --accent-color: #e67e22; 
+    --bg-light: #f4f7f6;
+    --text-dark: #2c3e50;
 }
 
+/* --- Global Reset & Typography --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,31 +15,34 @@
 }
 
 body {
-    background-color: var(--bg);
-    color: var(--text);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
     line-height: 1.6;
 }
 
-/* --- Layout Container (Prevents Laptop Stretching) --- */
-header, main, footer {
-    max-width: 1000px;
+/* --- Fluid Layout Container --- */
+main, header, footer {
+    max-width: 1100px;
+    width: 92%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 /* --- Navigation --- */
 nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 15px;
+    gap: 15px;
 }
 
-.logo {
+nav .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary);
+    color: var(--primary-color);
 }
 
 nav ul {
@@ -49,54 +53,64 @@ nav ul {
 
 nav a {
     text-decoration: none;
-    color: var(--primary);
-    font-weight: 600;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--accent);
+    color: var(--accent-color);
 }
 
 /* --- Hero Section --- */
 .hero {
     text-align: center;
-    padding: 80px 40px;
-    background-color: var(--primary);
+    padding: clamp(60px, 10vh, 120px) 20px; 
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #2c3e50, #1a252f);
     color: white;
-    border-radius: 8px;
-    margin: 30px 0;
+    border-radius: 12px;
+    margin: 30px 0 50px 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem); 
     margin-bottom: 15px;
+    line-height: 1.2;
 }
 
 /* --- Product Grid --- */
 section h2 {
     text-align: center;
-    font-size: 2rem;
     margin-bottom: 30px;
+    font-size: 2rem;
 }
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Strict 3 columns on desktop */
-    gap: 25px;
-    margin-bottom: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
 }
 
 .card {
     background: white;
-    padding: 25px;
+    padding: 30px;
     border-radius: 8px;
-    border-top: 4px solid var(--accent);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--accent-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
 /* --- Form Styles --- */
 #contact {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 form {
@@ -104,68 +118,49 @@ form {
     flex-direction: column;
     gap: 15px;
     background: white;
-    padding: 30px;
+    padding: 40px;
     border-radius: 8px;
-    max-width: 500px; /* Constrains form width on large screens */
-    margin: 0 auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    max-width: 600px; 
+    margin: 0 auto; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 input, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
 }
 
 button {
-    background-color: var(--accent);
+    background-color: #25D366; /* WhatsApp Green */
     color: white;
-    padding: 12px;
+    padding: 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #d35400;
+    background-color: #128C7E;
 }
 
+/* --- Footer --- */
 footer {
     text-align: center;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    margin-top: 40px;
+    font-size: 0.9em;
     color: #666;
-}
-
-/* --- Mobile Responsiveness (Phones & Small Tablets) --- */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .hero {
-        padding: 40px 20px;
-    }
-    
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .product-grid {
-        grid-template-columns: 1fr; /* Stacks cards into 1 column */
-    }
-    
-    form {
-        max-width: 100%; /* Allows form to fill the mobile screen */
-    }
 }
