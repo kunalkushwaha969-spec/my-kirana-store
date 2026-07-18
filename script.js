@@ -110,3 +110,13 @@ darkModeToggle.addEventListener('click', () => {
         darkModeToggle.textContent = '🌙 Dark Mode';
     }
 });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('scroll-show');
+    }
+  });
+});
+
+// Grab all elements with the class and observe them
+document.querySelectorAll('.scroll-hidden').forEach((el) => observer.observe(el));

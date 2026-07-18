@@ -20,23 +20,23 @@
     </header>
 
     <main>
-        <section id="home" class="hero">
+        <section id="home" class="hero scroll-hidden">
             <h1>Reliable Tractor Parts for Ramnagar</h1>
             <p>Supporting local agriculture and transport with quality spares.</p>
         </section>
 
         <section id="products">
-            <h2>Available Spares</h2>
+            <h2 class="scroll-hidden">Available Spares</h2>
             <div class="product-grid">
-                <div class="card">
+                <div class="card scroll-hidden">
                     <h3>Engine Components</h3>
                     <p>Pistons, rings, and gaskets for all major tractor brands.</p>
                 </div>
-                <div class="card">
+                <div class="card scroll-hidden">
                     <h3>Transmission Parts</h3>
                     <p>Clutch plates, gears, and bearings for heavy-duty operation.</p>
                 </div>
-                <div class="card">
+                <div class="card scroll-hidden">
                     <h3>Filters & Oils</h3>
                     <p>High-quality engine oil, fuel filters, and air filters.</p>
                 </div>
@@ -44,18 +44,60 @@
         </section>
 
         <section id="inventory">
-    <h2>Live Parts Finder</h2>
-    <p style="text-align: center; margin-bottom: 20px;">Search our regular stock to see what we carry.</p>
-    
-    <div class="search-container" style="max-width: 600px; margin: 0 auto 30px auto;">
-      
-        <input type="text" id="searchInput" placeholder="Search for oil, bearings, pipes..." style="width: 100%; padding: 15px; font-size: 1.1rem; border: 2px solid var(--primary-color); border-radius: 8px;">
-    </div>
-    
+            <h2 class="scroll-hidden">Live Parts Finder</h2>
+            <p class="scroll-hidden" style="text-align: center; margin-bottom: 20px;">Search our regular stock to see what we carry.</p>
+            
+            <div class="search-container scroll-hidden" style="max-width: 600px; margin: 0 auto 30px auto;">
+                <input type="text" id="searchInput" placeholder="Search for oil, bearings, pipes..." style="width: 100%; padding: 15px; font-size: 1.1rem; border: 2px solid var(--primary-color); border-radius: 8px;">
+            </div>
+            
+            <!-- The JS will automatically inject the products into this div -->
+            <div class="product-grid" id="resultsGrid"></div>
+        </section>
 
-    <!-- The JS will automatically inject the products into this div -->
-    <div class="product-grid" id="resultsGrid"></div>
-</section>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="scroll-hidden">Contact Us</h2>
+            <p class="scroll-hidden" style="text-align: center; margin-bottom: 20px;">Get in touch or visit our shop in Ramnagar.</p>
+            
+            <div class="product-grid">
+                
+                <!-- Address Card -->
+                <div class="card scroll-hidden">
+                    <h3>📍 Visit Our Shop</h3>
+                    <br>
+                    <p><strong>Address:</strong></p>
+                    <a href="https://www.google.com/maps?q=24.7082373,78.4254865" target="_blank" style="display: inline-block; margin-top: 10px; padding: 10px 16px; border: 1.5px solid var(--primary-color, #007bff); color: inherit; text-decoration: none; border-radius: 30px; font-weight: bold; line-height: 1.4; transition: 0.3s;">
+    🗺️ [Owner's exact address], Ramnagar
+</a>
+                </div>
+                
+                <!-- Contact Card -->
+                <div class="card scroll-hidden">
+                    <h3>📞 Get in Touch</h3>
+                    <br>
+                    <p><strong>Call Us:</strong></p>
+                    <a href="tel:#" style="display: inline-block; margin-top: 8px; padding: 8px 16px; border: 1.5px solid var(--primary-color, #007bff); color: inherit; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; transition: 0.3s;">
+                        📞 +91 9453209505
+                    </a>
+                    
+                    <p style="margin-top: 15px;"><strong>WhatsApp:</strong></p>
+                    <a href="https://wa.me/#" style="display: inline-block; margin-top: 8px; padding: 8px 16px; border: 1.5px solid #25D366; color: inherit; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; transition: 0.3s;">
+                        💬 +91 9453209505
+                    </a>
+                </div>
+
+                <!-- Business Hours Card -->
+                <div class="card scroll-hidden">
+                    <h3>🕒 Business Hours</h3>
+                    <br>
+                    <p><strong>Mon - Sat:</strong> 9:00 AM - 8:00 PM</p>
+                    <p><strong>Sunday:</strong> Closed</p>
+                </div>
+                
+            </div>
+        </section>
+
     </main>
     <footer>
         <p>&copy; 2026 Ramnagar Motor & Tractor Spares. SDG Goal 8 Initiative.</p>
